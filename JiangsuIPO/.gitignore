@@ -1,0 +1,8 @@
+/Atta
+/Data
+/Json
+/SQL
+*.sql
+*.zip
+/.idea
+/__pycache__
