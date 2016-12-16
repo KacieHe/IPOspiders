@@ -4,7 +4,7 @@ from urllib import parse
 
 class Policy:
     id = ''  # 1-1000
-    catid = ''  # 13
+    catid = '13'  # 13
     typeid = '0'  # 0
     title = ''  # 标题
     style = ''  # null
@@ -15,7 +15,7 @@ class Policy:
     url = ''  # eg: /itt/ttpolicy/index.php?m=content&c=index&a=show&catid=13&id=1
     listorder = '0'  # 0
     status = '99'  # 99
-    sysadd = '0'  # 0
+    sysadd = '1'  # 0
     islink = '0'  # 0
     username = 'spider'  # consulting
     inputtime = ''  # 1439389764
@@ -52,7 +52,7 @@ class Policy:
         if 'catid' in d:
             self.catid = d['catid']
         else:
-            self.catid = '0'
+            self.catid = '13'
 
         if 'typeid' in d:
             self.typeid = d['typeid']
@@ -108,7 +108,7 @@ class Policy:
         if 'sysadd' in d:
             self.sysadd = d['sysadd']
         else:
-            self.sysadd = '0'
+            self.sysadd = '1'
 
         if 'islink' in d:
             self.islink = d['islink']
