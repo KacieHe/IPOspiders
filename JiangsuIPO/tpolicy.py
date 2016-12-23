@@ -128,7 +128,7 @@ class Policy:
 
         if 'content' in d:
             if 'orig_url' in d:
-                content = '<p><a href="{0}" target="_blank">{0}</ a></ p>'.format(d['orig_url']) + d['content']
+                content = '<p>{0}</p><br/>'.format(d['orig_url']) + d['content']
             else:
                 content = d['content']
             content = '\\n'.join(content.splitlines())
@@ -379,7 +379,7 @@ class Policy:
 
     def save(self):
         filename = hashlib.md5()
-        filename.update(self.title.encode("utf8"))
+        filename.update(self.orig_url.encode("utf8"))
         with open('Data/' + filename.hexdigest(), 'w', encoding="utf8") as f:
             f.write(json.dumps(self.__dict__, ensure_ascii=False, sort_keys=True, indent=4))
 
@@ -428,7 +428,7 @@ class Policy:
 
     def have_saved(self):
         filename = hashlib.md5()
-        filename.update(self.title.encode("utf8"))
+        filename.update(self.orig_url.encode("utf8"))
         return os.path.exists("Data/" + filename.hexdigest())
         # if os.path.exists("Data/" + filename.hexdigest()):
         #     with open("Data/" + filename.hexdigest(), 'r', encoding="utf8") as f_saved:
@@ -455,7 +455,7 @@ class Policy:
                          'meta_policy', 'base_policy', 'supply_policy', 'main_policy', 'guest_policy', 'support_policy', 'expires_date',
                          'tags', 'passtime', 'departments', 'depts', 'memo', 'isfront', 'adminmemo', 'law_policy', "hashid", "orig_url"]
         filename = hashlib.md5()
-        filename.update(self.title.encode("utf8"))
+        filename.update(self.orig_url.encode("utf8"))
 
         if not self.have_saved():
             self.save()

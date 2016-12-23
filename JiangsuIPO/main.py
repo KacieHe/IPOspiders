@@ -28,6 +28,9 @@ UrlList = []
 for u in RootUrl:
     UrlList.extend(RootUrlConstructor(u[0], u[1]))
 
+n = 0
+
+
 DictList = []
 for u in UrlList:
     r = requests.get(u)
@@ -38,6 +41,10 @@ for u in UrlList:
         d["title"] = i.a.find("div", class_="text").get_text()
         d["publish_date"] = i.a.find("div", class_="text-date").get_text()
         d["orig_url"] = parse.urljoin(u, i.a["href"])
+        if get_hash(d["orig_url"]) in os.listdir("Json/"):
+            n += 1
+            print("已采集！", n)
+            continue
         if d["orig_url"].split(".")[-1] != "html":
             d["content"] = '<p><a href="{0}">{1}</a></p>'.format(d["orig_url"], d["title"])
             print(d)
@@ -45,9 +52,9 @@ for u in UrlList:
             policypage = requests.get(d["orig_url"])
             policypageb = BeautifulSoup(policypage.content, "html.parser")
             d['content'] = str(policypageb.find("div", style="clear:both;text-align:left;"))
-            with open("Json/" + get_hash(d["orig_url"]), 'w', encoding="utf8") as f:
-                f.write(json.dumps(d, ensure_ascii=False, sort_keys=True, indent=4))
-            print(round(time.time() - btime, 3))
+        with open("Json/" + get_hash(d["orig_url"]), 'w', encoding="utf8") as f:
+            f.write(json.dumps(d, ensure_ascii=False, sort_keys=True, indent=4))
+        print(round(time.time() - btime, 3))
 
 
 # r = requests.get(RootUrl[0])
